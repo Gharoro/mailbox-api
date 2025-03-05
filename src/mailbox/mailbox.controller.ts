@@ -28,7 +28,7 @@ export class MailboxController {
   @ApiOperation({ summary: 'Welcome the user with messages count' })
   @ApiResponse({ status: 200, description: 'Welcome message and user details' })
   async welcomeUser() {
-    return this.mailboxService.welcomeUser();
+    return await this.mailboxService.welcomeUser();
   }
 
   @Get('/messages')
@@ -38,7 +38,7 @@ export class MailboxController {
     @Query('page') page: number,
     @Query('limit') limit: number,
   ) {
-    return this.mailboxService.getMessages(page, limit);
+    return await this.mailboxService.getMessages(page, limit);
   }
 
   @Get('/message/:messageId')
@@ -46,7 +46,7 @@ export class MailboxController {
   @ApiResponse({ status: 200, description: 'Message details' })
   @ApiResponse({ status: 404, description: 'Message not found' })
   async getMessageById(@Param('messageId') messageId: string) {
-    return this.mailboxService.getMessageById(messageId);
+    return await this.mailboxService.getMessageById(messageId);
   }
 
   @Post()
@@ -54,7 +54,7 @@ export class MailboxController {
   @ApiResponse({ status: 201, description: 'Message created successfully' })
   @ApiResponse({ status: 400, description: 'Invalid input' })
   async createMessage(@Body() createMessageDto: CreateMessageDto) {
-    return this.mailboxService.createMessage(createMessageDto);
+    return await this.mailboxService.createMessage(createMessageDto);
   }
 
   @Put('/messages')
@@ -62,6 +62,6 @@ export class MailboxController {
   @ApiResponse({ status: 200, description: 'Message marked as read' })
   @ApiResponse({ status: 404, description: 'Message not found' })
   async updateMessagAsRead(@Body() body: { messageId: string }) {
-    return this.mailboxService.updateMessageAsRead(body.messageId);
+    return await this.mailboxService.updateMessageAsRead(body.messageId);
   }
 }
